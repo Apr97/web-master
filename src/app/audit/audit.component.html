@@ -1,0 +1,63 @@
+<h1>Hi {{ currentUser.firstName }}!</h1>
+<p>You're logged in with Angular 8!!</p>
+<h3>All login audit :</h3>
+<!-- <ul>
+    <li *ngFor="let audit of audits">
+        <br/><span class="badge badge-primary">{{audit.user}}</span>
+        <br/><span class="badge badge-secondary">{{audit._id}}</span>
+        <br/>Login - {{audit.loginTime}}
+        <br/>Logout - {{audit.logoutTime}}
+        <br/>IP - {{audit.ip}}
+    </li> 
+
+</ul>-->
+
+<div>
+  <div class="form-group">
+    <div class="col-md-6">
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        class="form-control"
+        placeholder="Search By Username"
+      />
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th (click)="sort('_id')" scope="col">
+          Id &nbsp;<i class="fa fa-sort"></i>
+        </th>
+        <th (click)="sort('user')" scope="col">
+          Username&nbsp;<i class="fa fa-sort"></i>
+        </th>
+        <th (click)="sort('loginTime')" scope="col">
+          Last Login&nbsp;<i class="fa fa-sort"></i>
+        </th>
+        <th (click)="sort('logoutTime')" scope="col">
+          Last Logout&nbsp;<i class="fa fa-sort"></i>
+        </th>
+        <th (click)="sort('ip')" scope="col">
+          Ip&nbsp;<i class="fa fa-sort"></i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let audit of audits
+            | audit: searchText
+            | paginate: { itemsPerPage: 8, currentPage: p }
+        "
+      >
+        <td>{{ audit._id }}</td>
+        <td>{{ audit.user }}</td>
+        <td>{{ audit.loginTime | date: "dd/MM/yyyy hh:mm:ss" }}</td>
+        <td>{{ audit.logoutTime | date: "dd/MM/yyyy hh:mm:ss" }}</td>
+        <td>{{ audit.ip }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
